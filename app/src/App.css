@@ -1,0 +1,16 @@
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+.App-container {
+  font-family: 'Open Sans', sans-serif;
+}
+
+button {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.App-content {
+  margin-top: 50px;
+}
