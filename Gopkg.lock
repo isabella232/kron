@@ -81,12 +81,6 @@
   version = "1.1.5"
 
 [[projects]]
-  name = "github.com/julienschmidt/httprouter"
-  packages = ["."]
-  revision = "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
-  version = "v1.1"
-
-[[projects]]
   name = "github.com/modern-go/concurrent"
   packages = ["."]
   revision = "bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94"
@@ -331,6 +325,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "7c68842ee995be8b8620cb349a9d03a2c1cc24068565aea42c345e45b8e70ae8"
+  inputs-digest = "327a441e9240ae4bc875564fcb522d6ee2bab87c97cb6478f533148d86ab1a3f"
   solver-name = "gps-cdcl"
   solver-version = 1

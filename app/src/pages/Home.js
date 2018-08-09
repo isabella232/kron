@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Elevation, Icon } from "@blueprintjs/core";
+import { Card, Elevation, Icon } from "@blueprintjs/core";
 
 import api from '../api'
 import './Home.css';
@@ -11,10 +11,12 @@ export default class Home extends React.Component {
 
     this.state = {
       cronjobs: [],
-      loading: true
+      loading: true,
+      autoRefreshTimer: null
     }
 
     this.refresh = this.refresh.bind(this)
+    this.toggleAutoRefresh = this.toggleAutoRefresh.bind(this)
   }
 
   componentWillMount() {
@@ -32,20 +34,40 @@ export default class Home extends React.Component {
     })
   }
 
+  toggleAutoRefresh() {
+    if(this.state.autoRefreshTimer === null) {
+      const autoRefreshTimer = setInterval(() => {
+        this.refresh()
+      }, 10000)
+      this.setState({autoRefreshTimer: autoRefreshTimer})
+    } else {
+      clearInterval(this.state.autoRefreshTimer)
+      this.setState({autoRefreshTimer: null})
+    }
+  }
+
   render() {
     return (
       <div>
-       <Icon onClick={this.refresh} icon="refresh" iconSize={20} />
-       {
-         this.state.loading && <p>Loading...</p>
-       }
-        {
-          this.state.cronjobs.map(cronjob => 
-            <Card key={cronjob.metadata.uid} interactive elevation={Elevation.THREE}>
-              <h3>{cronjob.metadata.name}</h3>
-            </Card>
-          )
-        }
+        <div className="Home-top-bar">
+          <span>Filters</span>
+          <div style={{float: "right"}}>
+            {
+              this.state.loading && <span>Loading...</span>
+            }
+            <Icon onClick={this.refresh} icon="refresh" iconSize={20} />
+            <Icon onClick={this.toggleAutoRefresh} icon="automatic-updates" iconSize={20} />
+          </div>
+        </div>
+        <div className="Home-cards">
+          {
+            this.state.cronjobs.map(cronjob => 
+              <Card className="Home-card" key={cronjob.metadata.uid} interactive elevation={Elevation.THREE}>
+                <h4>{cronjob.metadata.name}</h4>
+              </Card>
+            )
+          }
+        </div>
       </div>
     )
   }

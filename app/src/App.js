@@ -1,39 +1,29 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch
+  NavLink,
 } from 'react-router-dom';
-import { Navbar, Alignment, Button } from "@blueprintjs/core";
+import { Button, Navbar, Alignment } from "@blueprintjs/core";
 
 import './App.css';
-import Home from './pages/Home';
-import ScheduledJobs from './pages/ScheduledJobs';
 
 export default class App extends React.Component {
 
   render() {
     return (
       <div className="App-container">
-        <Router>
-          <div>
-            <Navbar className="bp3-dark" fixedToTop>
+        <Navbar className="bp3-dark" fixedToTop>
+            <div className="Navbar-center">
               <Navbar.Group align={Alignment.LEFT}>
                 <Navbar.Heading>Kron</Navbar.Heading>
                 <Navbar.Divider />
-                <Link to="/"><Button className="bp3-minimal" icon="home" text="Dashboard" /></Link>
-                <Link to="/jobs"><Button className="bp3-minimal" icon="document" text="Scheduled Jobs" /></Link>
+                <NavLink activeClassName="Nav-active" exact to="/"><Button className="bp3-minimal" icon="dashboard" text="Dashboard" /></NavLink>
+                <NavLink activeClassName="Nav-active" to="/jobs"><Button className="bp3-minimal" icon="time" text="Scheduled Jobs" /></NavLink>
               </Navbar.Group>
-            </Navbar>
-            <div className="App-content">
-              <Switch>
-                  <Route exact path="/" component={Home} />
-                  <Route exact path="/jobs" component={ScheduledJobs} />
-              </Switch>
             </div>
+          </Navbar>
+          <div className="App-content">
+            {this.props.children}
           </div>
-        </Router>
       </div>
     )
   }
